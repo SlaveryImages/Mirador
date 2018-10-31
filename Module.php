@@ -1,5 +1,5 @@
 <?php
-namespace HideProperties;
+namespace Mirador;
 
 use Omeka\Module\AbstractModule;
 use Zend\EventManager\Event;
