@@ -6,6 +6,9 @@ $this->htmlElement('body')->appendAttribute('class', 'item resource show');
 $embedMedia = false;
 $itemMedia = $item->media();
 
+$this->headLink()->appendStylesheet($this->assetUrl('css/mirador-combined.css'));
+
+$this->headScript()->appendFile($this->assetUrl('js/mirador.js', 'Mirador'));
 
 function console_log( $data ){
   echo '<script>';
@@ -26,6 +29,9 @@ $mirador_url = "http://mirador.britishart.yale.edu/?manifest=$manifest_url";
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" type="text/css" href="http://mirador.britishart.yale.edu/build/mirador/css/mirador-combined.css">
     <title>Mirador Viewer</title>
+
+        <?php echo $this->headStyle(); ?>
+        <?php echo $this->headScript(); ?>
     <style type="text/css">
      #viewer {
        width: 100%;
@@ -37,7 +43,6 @@ $mirador_url = "http://mirador.britishart.yale.edu/?manifest=$manifest_url";
   <body>
     <div id="viewer"></div>
 
-    <script src="http://mirador.britishart.yale.edu/build/mirador/mirador.js"></script>
     <script type="text/javascript">
 
      $(function() {
