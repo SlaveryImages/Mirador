@@ -13,6 +13,14 @@ use Zend\View\Model\ViewModel;
 
 class ContainerController extends AbstractActionController
 {
+
+
+    public function console_log( $data ){
+      echo '<script>';
+      echo 'console.log('. json_encode( $data ) .')';
+      echo '</script>';
+    }
+
     /**
      * Forward to the 'play' action
      *
@@ -25,41 +33,15 @@ class ContainerController extends AbstractActionController
 
     public function miradorAction()
     {
-        $id = $this->params('id');
-        if (empty($id)) {
-            throw new NotFoundException;
-        }
-
-        // Map iiif resources with Omeka Classic and Omeka S records.
-        $matchingResources = [
-            'item' => 'items',
-            'items' => 'items',
-            'item-set' => 'item_sets',
-            'item-sets' => 'item_sets',
-            'item_set' => 'item_sets',
-            'item_sets' => 'item_sets',
-            'collection' => 'item_sets',
-            'collections' => 'item_sets',
-        ];
-        $resourceName = $this->params('resourcename');
-        if (!isset($matchingResources[$resourceName])) {
-            throw new NotFoundException;
-        }
-        $resourceName = $matchingResources[$resourceName];
-
-        $response = $this->api()->read($resourceName, $id);
-        $resource = $response->getContent();
-        if (empty($resource)) {
-            throw new NotFoundException;
-        }
+        $site = $this->currentSite();
+        $response = $this->api()->read('items', $this->params('id'));
+        $item = $response->getContent();
 
         $view = new ViewModel;
-        $view->setVariable('id', $id);
-        $view->setVariable('item', $resource);
-        $view->setVariable('resourceName', $resourceName);
-
-	    $view->setTerminal(true);
+        $view->setVariable('site', $site);
+        $view->setTerminal(true);
+        $view->setVariable('item', $item);
+        $view->setVariable('resource', $item);
         return $view;
-        // return $this->jsonLd("HELLO");
     }
 }
