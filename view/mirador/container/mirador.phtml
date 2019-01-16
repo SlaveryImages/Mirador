@@ -27,7 +27,7 @@ $mirador_url = "http://mirador.britishart.yale.edu/?manifest=$manifest_url";
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <link rel="stylesheet" type="text/css" href="http://mirador.britishart.yale.edu/build/mirador/css/mirador-combined.css">
+    <link rel="stylesheet" type="text/css" href="/modules/Mirador/asset/css/mirador-combined.css">
     <title>Mirador Viewer</title>
 
         <?php echo $this->headStyle(); ?>
@@ -57,13 +57,26 @@ $mirador_url = "http://mirador.britishart.yale.edu/?manifest=$manifest_url";
            loadedManifest: "<?php echo $manifest_url; ?>",
            viewType: "ImageView"
          }],
-         "annotationEndpoint": { "name":"Local Storage", "module": "LocalStorageEndpoint" },
-         "windowSettings": {
+         'windowSettings' : {
            "canvasControls": { // The types of controls available to be displayed on a canvas
+             "annotations" : {
+               "annotationLayer" : false, //whether or not to make annotation layer available in this window
+               "annotationCreation" : false, /*whether or not to make annotation creation available in this window,
+                            only valid if annotationLayer is set to True and an annotationEndpoint is defined.
+                            This setting does NOT affect whether or not a user can edit an individual annotation that has already been created.*/
+               "annotationState" : 'off', //[_'off'_, 'on'] whether or not to turn on the annotation layer on window load
+               "annotationRefresh" : false, //whether or not to display the refresh icon for annotations
+             },
              "imageManipulation" : {
-               "manipulationLayer" : true,
+               "manipulationLayer" : false,
                "controls" : {
-                 "mirror" : true
+                 "rotate" : false,
+                 "brightness" : false,
+                 "contrast" : false,
+                 "saturate" : false,
+                 "grayscale" : false,
+                 "invert" : false,
+                 "mirror" : false
                }
              }
            }
