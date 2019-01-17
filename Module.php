@@ -7,6 +7,7 @@ use Zend\EventManager\SharedEventManagerInterface;
 use Zend\Mvc\Controller\AbstractController;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Renderer\PhpRenderer;
+use Zend\Mvc\MvcEvent;
 
 class Module extends AbstractModule
 {
@@ -15,10 +16,19 @@ class Module extends AbstractModule
         return include __DIR__ . '/config/module.config.php';
     }
 
+
+    public function onBootstrap(MvcEvent $event)
+    {
+        parent::onBootstrap($event);
+        $acl = $this->getServiceLocator()->get('Omeka\Acl');
+        $acl->allow(null, 'Mirador\Controller\Container');
+    }
+
+
     public function uninstall(ServiceLocatorInterface $serviceLocator)
     {
         $settings = $serviceLocator->get('Omeka\Settings');
-        $settings->delete('miradoor_properties');
+        $settings->delete('mirador_properties');
     }
 
     public function attachListeners(SharedEventManagerInterface $sharedEventManager)
