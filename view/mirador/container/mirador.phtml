@@ -1,9 +1,4 @@
 <?php
-$translate = $this->plugin('translate');
-$escape = $this->plugin('escapeHtml');
-$this->htmlElement('body')->appendAttribute('class', 'item resource show');
-// $embedMedia = $this->siteSetting('item_media_embed', false);
-$embedMedia = false;
 $itemMedia = $item->media();
 
 $this->headLink()->appendStylesheet($this->assetUrl('css/mirador-combined.css'));
@@ -16,11 +11,9 @@ function console_log( $data ){
   echo '</script>';
 }
 
-//console_log($itemMedia);
+// console_log($items);
 
 $manifest_url = $this->iiifUrl($item) ;
-$mirador_url = "http://mirador.britishart.yale.edu/?manifest=$manifest_url";
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,7 +43,13 @@ $mirador_url = "http://mirador.britishart.yale.edu/?manifest=$manifest_url";
          "id": "viewer",
          "layout": "1x1",
          "buildPath": "",
+         "i18nPath": "/modules/Mirador/asset/locales/",
+         "imagesPath" : '/modules/Mirador/asset/images/',
          "data": [
+        <?php foreach ($items as $itemSetItem): ?>
+          <?php $itemSetItemManifest = $this->iiifUrl($itemSetItem); ?>
+           { "manifestUri": "<?php echo $itemSetItemManifest; ?>", "location": "SlaveryImages.org" },
+        <?php endforeach; ?>
            { "manifestUri": "<?php echo $manifest_url; ?>", "location": "SlaveryImages.org" }
          ],
          "windowObjects": [{

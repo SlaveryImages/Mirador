@@ -15,11 +15,6 @@ class ContainerController extends AbstractActionController
 {
 
 
-    public function console_log( $data ){
-      echo '<script>';
-      echo 'console.log('. json_encode( $data ) .')';
-      echo '</script>';
-    }
 
     /**
      * Forward to the 'play' action
@@ -37,11 +32,28 @@ class ContainerController extends AbstractActionController
         $response = $this->api()->read('items', $this->params('id'));
         $item = $response->getContent();
 
+        $query = $this->params()->fromQuery();
+        // $query['site_id'] = $site->id();
+        $items = Array();
+        $itemSets = $item->itemSets();
+        if (count($itemSets) > 0): 
+            foreach ($itemSets as $itemSet):         
+                $query['item_set_id'] = $itemSet->id();
+                $response = $this->api()->search('items', $query);
+                $this->paginator($response->getTotalResults(), $this->params()->fromQuery('page'));
+                $items = $response->getContent();
+            endforeach;
+        endif;
+
+
         $view = new ViewModel;
         $view->setVariable('site', $site);
         $view->setTerminal(true);
         $view->setVariable('item', $item);
+        $view->setVariable('items', $items);
         $view->setVariable('resource', $item);
+
+
         return $view;
     }
 }

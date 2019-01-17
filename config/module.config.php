@@ -16,7 +16,7 @@ return [
             'mirador_container' => [
                 'type' => 'segment',
                 'options' => [
-                    'route' => '/:resourcename/:id/mirador',
+                    'route' => '/s/:site-slug/:resourcename/:id/mirador',
                     'constraints' => [
                         'resourcename' => 'item|item\-set',
                         'id' => '\d+',
