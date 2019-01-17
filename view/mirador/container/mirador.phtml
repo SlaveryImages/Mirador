@@ -46,10 +46,6 @@ $manifest_url = $this->iiifUrl($item) ;
          "i18nPath": "/modules/Mirador/asset/locales/",
          "imagesPath" : '/modules/Mirador/asset/images/',
          "data": [
-        <?php foreach ($items as $itemSetItem): ?>
-          <?php $itemSetItemManifest = $this->iiifUrl($itemSetItem); ?>
-           { "manifestUri": "<?php echo $itemSetItemManifest; ?>", "location": "SlaveryImages.org" },
-        <?php endforeach; ?>
            { "manifestUri": "<?php echo $manifest_url; ?>", "location": "SlaveryImages.org" }
          ],
          "windowObjects": [{
