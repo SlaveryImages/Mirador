@@ -5,7 +5,7 @@ A barebones implementation that gives you a new Mirador action for your items th
 
 It is not intended for anyone who is not comfortable developing their own themes.  
 
-We're interested in making this a full Omeka-S module, including support for annotations stored in the Omeka-S database.  We're looking for collaborators and funders for that work.
+We're interested in making this a full Omeka-S module, including support for annotations stored in the Omeka-S database and welcome funded projects and collaborations to add these -- or other -- new features.
 
 ## Installation
 This module depends on the [IIIF Server module](https://omeka.org/s/modules/IiifServer/), so please install that first.
